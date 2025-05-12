@@ -14,6 +14,4 @@ public interface IPlatformHelper {
     default String getEnvironmentName() {
         return isDevelopmentEnvironment() ? "development" : "production";
     }
-
-    BakedModel getModel(ResourceLocation id, ModelManager manager);
 }

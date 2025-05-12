@@ -24,9 +24,4 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
     }
-
-    @Override
-    public BakedModel getModel(ResourceLocation id, ModelManager manager) {
-        return manager.getModel(new ModelResourceLocation(id, "inventory"));
-    }
 }

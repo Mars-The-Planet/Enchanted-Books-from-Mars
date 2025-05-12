@@ -1,7 +1,6 @@
 package com.mars.ebooks;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelEvent;
@@ -19,7 +18,7 @@ public class ClientEvents {
     public static void onRegisterModel(ModelEvent.RegisterAdditional event) {
         Set<ResourceLocation> ids = CommonClass.getTextures(Minecraft.getInstance().getResourceManager());
         for (ResourceLocation id : ids){
-            event.register(ModelResourceLocation.inventory(id.withPrefix(BOOK_FOLDER)));
+            event.register(id.withPrefix(BOOK_FOLDER));
         }
     }
 }

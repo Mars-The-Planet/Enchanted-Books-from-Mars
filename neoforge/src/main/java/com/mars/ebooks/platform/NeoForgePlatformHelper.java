@@ -24,9 +24,4 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
     }
-
-    @Override
-    public BakedModel getModel(ResourceLocation id, ModelManager manager) {
-        return manager.getModel(ModelResourceLocation.standalone(id));
-    }
 }
