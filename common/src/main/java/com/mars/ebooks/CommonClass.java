@@ -1,11 +1,8 @@
 package com.mars.ebooks;
 
 import com.mars.deimos.config.DeimosConfig;
-import com.mars.ebooks.platform.Services;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.Items;
 
 import java.util.HashSet;
 import java.util.Set;

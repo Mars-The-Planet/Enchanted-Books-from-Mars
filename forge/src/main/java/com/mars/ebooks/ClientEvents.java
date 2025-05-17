@@ -19,7 +19,8 @@ public class ClientEvents {
     public static void onRegisterModel(ModelEvent.RegisterAdditional event) {
         Set<ResourceLocation> ids = getTextures(Minecraft.getInstance().getResourceManager());
         for (ResourceLocation id : ids){
-            event.register(id.withPrefix(BOOK_FOLDER));
+            ResourceLocation prefixed = new ResourceLocation(id.getNamespace(), BOOK_FOLDER + id.getPath());
+            event.register(prefixed);
         }
     }
 }

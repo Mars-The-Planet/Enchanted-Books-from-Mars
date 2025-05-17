@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,7 +38,7 @@ public abstract class ItemRendererMixin {
             return ((ModelShaper) this).itemModelShaper().getItemModel(stack);
 
         Enchantment first = enchants.keySet().iterator().next();
-        ResourceLocation enchRL = BuiltInRegistries.ENCHANTMENT.getKey(first);
+        ResourceLocation enchRL = Registry.ENCHANTMENT.getKey(first);
         String name = enchRL.getPath();
         ResourceLocation modelID = new ResourceLocation(enchRL.getNamespace(), BOOK_FOLDER + name);
         ModelManager mm = self.getModelManager();
