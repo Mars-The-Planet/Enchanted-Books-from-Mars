@@ -13,11 +13,15 @@ public class CommonClass {
     static Set<ResourceLocation> getTextures(ResourceManager resourceManager){
         Set<ResourceLocation> IDs = new HashSet<>();
         String folder = "textures/item/ebooks";
-        for(ResourceLocation id : resourceManager.listResources(folder, id -> id.getPath().endsWith(".png")).keySet()){
-            String path = id.getPath();
-            path = path.substring(folder.length()+1, path.length()-".png".length());
-            IDs.add(new ResourceLocation(id.getNamespace(), path));
-        }
+        resourceManager.listResources(folder, path -> path.endsWith(".png"))
+                .forEach(resLoc -> {
+                    String fullPath = resLoc.getPath();
+                    String name     = fullPath
+                            .substring(folder.length() + 1,
+                                    fullPath.length() - ".png".length());
+                    IDs.add(new ResourceLocation(resLoc.getNamespace(), name));
+                });
+
         return IDs;
     }
 
