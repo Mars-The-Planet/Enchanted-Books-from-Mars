@@ -1,5 +1,6 @@
 package com.mars.ebooks;
 
+import com.mars.deimos.config.DeimosConfig;
 import com.mars.ebooks.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -8,6 +9,8 @@ import net.minecraft.world.item.Items;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.mars.ebooks.Constants.MOD_ID;
 
 public class CommonClass {
     static Set<ResourceLocation> getTextures(ResourceManager resourceManager){
@@ -30,6 +33,6 @@ public class CommonClass {
                 "}";
     }
     public static void init() {
-
+        DeimosConfig.init(MOD_ID, EnchantedBooksConfig.class);
     }
 }

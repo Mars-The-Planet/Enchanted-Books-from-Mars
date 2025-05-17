@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Map;
 
 import static com.mars.ebooks.Constants.BOOK_FOLDER;
+import static com.mars.ebooks.EnchantedBooksConfig.turned_on;
 
 
 @Mixin(ItemRenderer.class)
@@ -29,23 +30,23 @@ public abstract class ItemRendererMixin {
             )
     )
     private BakedModel redirectGetItemModel(ItemModelShaper self, ItemStack stack) {
-        if (stack.is(Items.ENCHANTED_BOOK)) {
-            Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
-            if (!enchants.isEmpty()) {
-                Enchantment first = enchants.keySet().iterator().next();
-                ResourceLocation enchRL = BuiltInRegistries.ENCHANTMENT.getKey(first);
-                String name = enchRL.getPath();
-                ResourceLocation modelID = new ResourceLocation(enchRL.getNamespace(), BOOK_FOLDER + name);
+        if(!stack.is(Items.ENCHANTED_BOOK) || !turned_on)
+            return ((ModelShaper) this).itemModelShaper().getItemModel(stack);
 
-                ModelManager mm = self.getModelManager();
-                Map<ResourceLocation, BakedModel> bakedRegistry = ((ModelManagerMixin) mm).getBakedRegistry();
-                BakedModel custom = bakedRegistry.get(modelID);
+        Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
+        if(enchants.isEmpty())
+            return ((ModelShaper) this).itemModelShaper().getItemModel(stack);
 
-                if (custom != null && custom != mm.getMissingModel()) {
-                    return custom;
-                }
-            }
-        }
+        Enchantment first = enchants.keySet().iterator().next();
+        ResourceLocation enchRL = BuiltInRegistries.ENCHANTMENT.getKey(first);
+        String name = enchRL.getPath();
+        ResourceLocation modelID = new ResourceLocation(enchRL.getNamespace(), BOOK_FOLDER + name);
+        ModelManager mm = self.getModelManager();
+        Map<ResourceLocation, BakedModel> bakedRegistry = ((ModelManagerMixin) mm).getBakedRegistry();
+        BakedModel custom = bakedRegistry.get(modelID);
+
+        if (custom != null && custom != mm.getMissingModel())
+            return custom;
         return ((ModelShaper) this).itemModelShaper().getItemModel(stack);
     }
 }
